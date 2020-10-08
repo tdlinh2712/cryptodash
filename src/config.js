@@ -1,0 +1,1 @@
+export const cryptoCompareKey = '7ce3ed50fee13a94adab846c1e09841d6e6ac19cdc7646a995095738265e240b';
