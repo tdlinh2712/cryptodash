@@ -5,6 +5,7 @@ import AppLayout from './AppLayout'
 import AppBar from './AppBar'
 import styled from 'styled-components'
 import {AppProvider} from './AppProvider'
+import Content from '../Shared/Content'
 
 const MyButton = styled.div`
   color:green
@@ -16,8 +17,9 @@ function App() {
     <AppLayout>
       <AppProvider>
         <AppBar />
-        <Settings />
-        <MyButton>Hello</MyButton>
+        <Content>
+          <Settings />
+        </Content>
       </AppProvider>
       
     </AppLayout>
