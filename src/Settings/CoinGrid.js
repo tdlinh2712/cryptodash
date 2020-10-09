@@ -12,16 +12,16 @@ export const CoinGridStyled = styled.div`
     
 `
 
-const getCointToDisplay = (coinList) => {
-    return Object.keys(coinList).slice(0,100);
+const getCointToDisplay = (coinList, topSection, favourites) => {
+    return topSection ? favourites : Object.keys(coinList).slice(0,100);
 }
 
-const CoinGrid = () => {
+const CoinGrid = ({topSection}) => {
     return <AppContext.Consumer>
-        {({coinList}) => (
+        {({coinList, favourites}) => (
             <CoinGridStyled>
-                {getCointToDisplay(coinList).map(coinKey => 
-                <CoinTile coinKey={coinKey} />)}
+                {(getCointToDisplay(coinList, topSection, favourites) || []).map(coinKey => 
+                <CoinTile topSection={topSection} coinKey={coinKey} key={coinKey}/>)}
             </CoinGridStyled>)}
     </AppContext.Consumer>
 }

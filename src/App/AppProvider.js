@@ -4,6 +4,7 @@ import {cryptoCompareKey} from '../config'
 const cc = require('cryptocompare')
 cc.setApiKey(cryptoCompareKey);
 
+const TIME_UNITS = 10;
 
 export const AppContext = React.createContext();
 
@@ -12,15 +13,25 @@ export class AppProvider extends React.Component {
         super(props);
         this.state = {
             page:'dashboard',
+            favourites: ['BTC', 'ETH', 'XMR', 'DOGE'],
             ...this.savedSettings(),
             setPage:this.setPage,
             confirmFavourites: this.confirmFavourites
         }
     }
 
+    
+
     componentDidMount = () => {
         this.fetchCoins();
+      //  this.fetchHistorical();
     }
+
+    fetchHistorical = async () => {
+        if(this.state.firstVisit) return;
+        let result = await this.historical();
+    }
+
 
     fetchCoins = async () => {
         let coinList = (await cc.coinList()).Data;
