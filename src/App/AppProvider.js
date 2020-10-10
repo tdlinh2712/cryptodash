@@ -23,7 +23,9 @@ export class AppProvider extends React.Component {
             setPage:this.setPage,
             confirmFavourites: this.confirmFavourites,
             setCurrentFavourite: this.setCurrentFavourite,
-            setFilterCoins: this.setFilterCoins
+            setFilterCoins: this.setFilterCoins,
+            changeChartSelect: this.changeChartSelect,
+            timeInterval:'months'
         }
     }
 
@@ -41,7 +43,7 @@ export class AppProvider extends React.Component {
             {
                 name: this.state.currentFavourite,
                 data: results.map((ticker, index) => [
-                    moment().subtract({months: TIME_UNITS - index}).valueOf(),
+                    moment().subtract({[this.state.timeInterval]: TIME_UNITS - index}).valueOf(),
                     ticker.USD
                 ])
             }
@@ -57,7 +59,7 @@ export class AppProvider extends React.Component {
                 cc.priceHistorical(
                     this.state.currentFavourite, 
                     ['USD'],
-                    moment().subtract({months: units}).toDate()
+                    moment().subtract({[this.state.timeInterval]: units}).toDate()
                 )
             )
         }
@@ -71,6 +73,11 @@ export class AppProvider extends React.Component {
     }
 
     isInFavourites = key => _.includes(this.state.favourites, key);
+
+    changeChartSelect = (value) => {
+        this.setState({timeInterval: value, historical: null}, this.fetchHistorical );
+
+    }
 
     addCoin = key => {
         let favourites = [...this.state.favourites];
