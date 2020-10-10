@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
 import {AppContext} from './AppProvider'
+import {color3} from '../Shared/Styles'
 
 const Logo = styled.div`
     font-size:1.5em;
@@ -15,7 +16,7 @@ const Bar = styled.div`
 const ControlButtonElem = styled.div`
     cursor: pointer;
     ${props => props.active && css`
-        text-shadow: 0px 0px 60px #03ff03;
+        text-shadow: 0px 0px 60px ${color3};
     `}
     ${props => props.hidden && css`
         display:none;
